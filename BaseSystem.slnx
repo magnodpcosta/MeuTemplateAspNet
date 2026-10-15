@@ -1,4 +1,0 @@
-<Solution>
-  <Project Path="BaseSystem.Api/BaseSystem.Api.csproj" />
-  <Project Path="BaseSystem.Tests/BaseSystem.Tests.csproj" />
-</Solution>
