@@ -19,6 +19,7 @@
    - [Habilidades (Skills)](#4-habilidades-skills)
 7. [Guia de Bolso: Quando chamar cada comando?](#-guia-de-bolso-quando-chamar-cada-comando)
 8. [Estrutura de Pastas do Repositório](#-estrutura-de-pastas-do-repositório)
+9. [Como aplicar em projetos existentes (Brownfield)](#-como-aplicar-em-projetos-existentes-brownfield)
 
 ---
 
@@ -230,6 +231,18 @@ MeuTemplateAspNet/
 
 ---
 
+## 🔄 Como aplicar em projetos existentes (Brownfield)
+
+Você já possui um sistema em andamento (como o `D:\Dev\Gestao_Frotas`) e quer aplicar essa metodologia sem quebrar o que já funciona em produção?
+
+Consulte nosso guia completo passo a passo:
+👉 **[COMO_USAR_EM_PROJETOS_EXISTENTES.md](COMO_USAR_EM_PROJETOS_EXISTENTES.md)**
+
+Aprenda como aplicar o **Padrão Estrangulador (Strangler Fig Pattern)**, injetar a pasta `.agent/` e `specs/`, rodar diagnósticos com `/security-review`, escrever testes de caracterização com `/tdd` e refatorar módulos legados de forma cirúrgica e segura!
+
+---
+
 ## 🌟 Princípio Fundamental
 
 > **"Nunca peça para a IA codificar antes de planejar; nunca aceite um código sem compilar com 0 erros; nunca suba para produção sem auditoria de segurança."**
+
