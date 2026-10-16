@@ -17,3 +17,4 @@
 
 4. **Qualidade**:
    - A aplicação deve compilar com `dotnet build` com 0 erros ao final de cada tarefa.
+

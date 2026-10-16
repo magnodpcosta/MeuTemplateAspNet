@@ -55,3 +55,4 @@ Exemplo:
 5. **Apresentação e Confirmação**:
    - Exibir um resumo do plano gerado para o desenvolvedor.
    - Aguardar a revisão do usuário antes de iniciar qualquer implementação de código.
+

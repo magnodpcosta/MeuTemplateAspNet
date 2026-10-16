@@ -33,3 +33,4 @@
 ## 5. Estratégia de Testes
 - Testes unitários cobrindo as regras de negócio do serviço.
 - Validação de casos de sucesso e cenários de erro/exceção.
+

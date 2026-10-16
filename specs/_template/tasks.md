@@ -53,3 +53,4 @@
   - Tratar status codes adequados (200, 201, 400, 404).
 - **Critério de Validação**:
   - `dotnet build` com 0 erros; endpoints visíveis e validados.
+

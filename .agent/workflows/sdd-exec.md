@@ -44,3 +44,4 @@ Exemplo:
 5. **Pausa para Aprovação**:
    - Informar detalhadamente o que foi implementado, quais arquivos foram criados/alterados e o resultado de `dotnet build` / `dotnet test`.
    - **NÃO avançar para a próxima tarefa automaticamente**. Aguardar a aprovação explícita do desenvolvedor para executar a próxima task.
+

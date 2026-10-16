@@ -27,3 +27,4 @@
   - **Dado** [identificador inexistente]
   - **Quando** [a consulta for realizada]
   - **Então** [retornar 404 Not Found]
+
