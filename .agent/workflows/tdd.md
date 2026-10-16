@@ -21,3 +21,4 @@ Exemplo:
 2. **GREEN (Código Mínimo)**: Implementa o código mínimo necessário em `BaseSystem.Api/` para fazer o teste passar. Executa `dotnet test` para comprovar que passou.
 3. **REFACTOR (Melhoria)**: Refatora o código eliminando duplicações e otimizando a legibilidade sem quebrar os testes.
 4. **Verificação de Cobertura**: Garante cobertura mínima de 80% nos cenários críticos, fluxos de exceção e limites de borda.
+
