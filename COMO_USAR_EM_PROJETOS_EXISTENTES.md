@@ -58,10 +58,14 @@ Abra o terminal PowerShell e execute:
 # 1. Copiar as pastas de inteligência do template para o projeto existente
 Copy-Item -Recurse -Force "D:\Dev\MeuTemplateAspNet\.agent" "D:\Dev\Gestao_Frotas\.agent"
 Copy-Item -Recurse -Force "D:\Dev\MeuTemplateAspNet\specs"  "D:\Dev\Gestao_Frotas\specs"
+
+# 2. Rodar a curadoria automatizada de agentes (mantém apenas os 23 especialistas .NET)
+powershell -ExecutionPolicy Bypass -File "D:\Dev\MeuTemplateAspNet\scripts\curate-agents.ps1" -Profile dotnet -TargetPath "D:\Dev\Gestao_Frotas"
 ```
 
 ### O que acontece imediatamente:
-- Ao abrir a pasta `D:\Dev\Gestao_Frotas` no **Antigravity**, todos os agentes (`architect`, `tdd-guide`, `security-reviewer`), todos os workflows (`/sdd-plan`, `/sdd-exec`, `/security-review`, `/code-review`, `/tdd`) e a `constitution.md` ficam **ativos instantaneamente**!
+- A pasta `D:\Dev\Gestao_Frotas` fica limpa e enxuta, contendo apenas os agentes especializados em C#, EF Core, TDD e Arquitetura;
+- Ao abrir o projeto no **Antigravity**, todos os workflows (`/sdd-plan`, `/sdd-exec`, `/security-review`, `/code-review`, `/tdd`) e a `constitution.md` ficam **ativos instantaneamente**!
 
 ---
 
@@ -209,3 +213,4 @@ Quando você for aplicar esta metodologia em qualquer projeto da sua máquina (`
 > 💡 **Lembre-se da Regra do Escoteiro**:  
 > *"Deixe o código sempre um pouco mais limpo do que quando você o encontrou."*  
 > Você não precisa reescrever o `Gestao_Frotas` inteiro em uma semana. Cada vez que você for dar manutenção ou criar algo novo, aplique uma Spec. Em pouco tempo, o sistema estará 100% moderno, blindado e testado!
+

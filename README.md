@@ -177,11 +177,64 @@ Comandos acionáveis diretamente no chat para automatizar etapas complexas:
 | **`/test-coverage`** | `test-coverage.md` | Analisa cobertura e gera testes unitários faltantes | Para garantir que a suíte de testes atinja 80%+. |
 
 ### 3. Agentes Especialistas (`.agent/agents/`)
-Personas especializadas que assumem papéis nos workflows:
-- **`architect.md`**: Arquiteto sênior focado em separação de camadas, DDD e escalabilidade.
-- **`tdd-guide.md`**: Especialista em testes automatizados que garante que o teste falhe antes do código existir (Red-Green-Refactor).
-- **`security-reviewer.md`**: Especialista em cibersegurança focado em blindagem de endpoints e dados sensíveis.
-- **`code-reviewer.md`**: Engenheiro de software focado em manutenibilidade e clean code.
+
+O repositório original do ECC traz mais de **71 agentes** de dezenas de linguagens e nichos (PHP, Swift, Ruby, Rust, Python/Django, marketing, redes, etc.). Em um projeto .NET, manter dezenas de agentes não relacionados consome contexto de tokens e polui o ambiente.
+
+Por isso, este template inclui o script de curadoria automatizada **`scripts/curate-agents.ps1`**, que manteve **apenas os 23 especialistas de alto impacto** para a stack C# / ASP.NET Core e Engenharia de Software.
+
+#### 🤖 Tabela Completa dos 23 Agentes Especialistas Ativos
+
+| Agente | Arquivo | Especialidade / O que faz | Quando e Como Chamar |
+| :--- | :--- | :--- | :--- |
+| **Architect** | `architect.md` | Desenho de arquitetura de alto nível, escalabilidade e decisões de design. | Chame no início de novas funcionalidades ou grandes refatorações (`/sdd-plan` ou no prompt: *"Como Arquiteto, avalie..."*). |
+| **Code Architect** | `code-architect.md` | Cria blueprints concretos de implementação (arquivos, interfaces e ordem de build). | Ao transformar requisitos complexos em planos técnicos detalhados. |
+| **Planner** | `planner.md` | Decompõe tarefas complexas e mapeia riscos e dependências. | Acionado automaticamente pelo `/plan` ou no prompt. |
+| **Code Explorer** | `code-explorer.md` | Rastreia caminhos de execução, mapeia camadas e dependências em código existente. | Ao entrar em uma funcionalidade legada desconhecida para entender o fluxo antes de alterar. |
+| **C# Reviewer** | `csharp-reviewer.md` | Especialista em C#, .NET 8/9/10, async/await, LINQ, nullable types e EF Core. | Acionado pelo `/code-review` ou após criar/alterar qualquer arquivo `.cs`. |
+| **F# Reviewer** | `fsharp-reviewer.md` | Revisor de código funcional F# para cálculo, types e pattern matching. | Quando houver módulos ou bibliotecas em F# no ecossistema .NET. |
+| **Database Reviewer** | `database-reviewer.md` | Otimização de SQL, migrations do EF Core, índices e performance de banco. | Ao criar ou alterar tabelas, migrations ou queries complexas no EF Core. |
+| **TDD Guide** | `tdd-guide.md` | Especialista no ciclo estrito Red-Green-Refactor com meta de 80%+ de cobertura. | Acionado pelo `/tdd` ou `/sdd-exec` ao implementar regras de negócio. |
+| **PR Test Analyzer** | `pr-test-analyzer.md` | Analisa a completude e qualidade comportamental da suíte de testes. | Antes de abrir um Pull Request ou após criar novos testes com xUnit. |
+| **E2E Runner** | `e2e-runner.md` | Gera e executa testes de ponta a ponta (E2E) com Playwright. | Para testar fluxos completos da API ou UI em integração contínua. |
+| **Agent Evaluator** | `agent-evaluator.md` | Avalia respostas e planos segundo critérios de precisão, clareza e completude. | Para auditar a qualidade técnica das propostas geradas pela IA. |
+| **Security Reviewer** | `security-reviewer.md` | Auditoria OWASP Top 10, proteção de dados, JWT, secrets e injeção de SQL. | Acionado pelo `/security-review` antes de qualquer entrega ou deploy. |
+| **Build Error Resolver** | `build-error-resolver.md` | Diagnóstico e correção cirúrgica de falhas de compilação no `dotnet build`. | Acionado automaticamente quando ocorrem erros de compilação ou dependências NuGet. |
+| **Silent Failure Hunter** | `silent-failure-hunter.md` | Caça `try/catch` vazios, erros engolidos e exceções não propagadas. | Em revisões de resiliência e tratamento de erros na camada de serviço. |
+| **Spec Miner** | `spec-miner.md` | Extrai regras de negócio de código legado existente e gera specs SDD. | **Fundamental em Brownfield**: use para documentar uma funcionalidade antiga antes de refatorá-la! |
+| **Refactor Cleaner** | `refactor-cleaner.md` | Identifica e remove código morto, classes não utilizadas e duplicações. | Em manutenções periódicas de limpeza técnica e redução de dívida técnica. |
+| **Code Simplifier** | `code-simplifier.md` | Refatora código complexo tornando-o limpo e direto, preservando 100% do comportamento. | Após fazer o código funcionar, para polir legibilidade e manutenibilidade. |
+| **Code Reviewer** | `code-reviewer.md` | Revisão 360° em qualidade, legibilidade, SOLID e Clean Architecture. | Acionado pelo `/code-review` antes de comitar. |
+| **Type Design Analyzer** | `type-design-analyzer.md` | Analisa imutabilidade, records, encapsulation e invariantes de domínio. | Ao desenhar entidades, DTOs e Value Objects em DDD. |
+| **Performance Optimizer** | `performance-optimizer.md` | Identifica gargalos de CPU/memória, consultas lentas e uso de `.AsNoTracking()`. | Quando endpoints ou consultas ao banco apresentarem lentidão. |
+| **Commit Reviewer** | `commit-reviewer.md` | Avalia o diff e gera mensagens de commit seguindo Conventional Commits. | Antes de rodar `git commit` para padronizar o histórico do Git. |
+| **Doc Updater** | `doc-updater.md` | Mantém READMEs, diagramas e codemaps sincronizados com o código. | Ao concluir uma funcionalidade para atualizar documentação viva. |
+| **Docs Lookup** | `docs-lookup.md` | Consulta documentações oficiais e exemplos atualizados de bibliotecas via Context7 MCP. | Quando tiver dúvidas sobre sintaxe ou APIs de pacotes NuGet novos. |
+
+---
+
+### ⚙️ Como Automatizar a Escolha de Agentes com o `curate-agents.ps1`
+
+Nem todo projeto precisa de todos os agentes. Para automatizar a filtragem e garantir que seu projeto (novo ou existente) tenha apenas o necessário:
+
+```powershell
+# Opção 1: Perfil C# / .NET Padrão (Mantém os 23 agentes essenciais listados acima)
+.\scripts\curate-agents.ps1 -Profile dotnet
+
+# Opção 2: Perfil Fullstack (Mantém .NET + TypeScript, React, Vue e A11y para projetos com front-end)
+.\scripts\curate-agents.ps1 -Profile dotnet-fullstack
+
+# Opção 3: Perfil Mínimo (Mantém apenas o Top 10 crítico: Arquiteto, C#, TDD, Security, etc.)
+.\scripts\curate-agents.ps1 -Profile minimal
+
+# Opção 4: Simulação segura (não deleta nada, apenas mostra o que seria mantido/removido)
+.\scripts\curate-agents.ps1 -Profile dotnet -DryRun
+```
+
+> 💡 **Para aplicar em um projeto existente (como `D:\Dev\Gestao_Frotas`):**
+> ```powershell
+> .\scripts\curate-agents.ps1 -Profile dotnet -TargetPath "D:\Dev\Gestao_Frotas"
+> ```
+
 
 ### 4. Habilidades (`.agent/skills/`)
 Módulos de conhecimento estendido que o agente consulta conforme a necessidade:
